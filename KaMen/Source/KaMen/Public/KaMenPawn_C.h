@@ -6,6 +6,8 @@
 #include "TestingMasterPawn_C.h"
 #include "KaMenPawn_C.generated.h"
 
+class UKaMenStaticMeshComponent_C;
+
 UCLASS()
 class KAMEN_API AKaMenPawn_C : public ATestingMasterPawn_C
 {
@@ -14,6 +16,10 @@ class KAMEN_API AKaMenPawn_C : public ATestingMasterPawn_C
 public:
 	// Sets default values for this pawn's properties
 	AKaMenPawn_C();
+    
+    //Setters
+    UFUNCTION(BlueprintCallable, Category = "Setup")
+    void SetKamenMeshReference(UKaMenStaticMeshComponent_C* KamenMeshToSet);
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,7 +31,17 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+    
+    // Passes a player intended movement to the corresponding Unit, pawn mesh
+    UFUNCTION(BlueprintCallable, Category = "Player Movements")
+    void IntendRight(float Axis);
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
+    float PlayerSpeed;
+    
+private:
+    UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
 
-    AKaMenPawn_C* AKaMenPawn;
+    //AKaMenPawn_C* AKaMenPawn;
 	
 };
