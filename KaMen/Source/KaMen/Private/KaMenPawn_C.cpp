@@ -12,7 +12,7 @@ AKaMenPawn_C::AKaMenPawn_C()
 
 }
 
-//Set References
+//Set Kamen Reference
 void AKaMenPawn_C::SetKamenMeshReference(UKaMenStaticMeshComponent_C* KamenMeshToSet){
     KaMenMesh = KamenMeshToSet;
 }
@@ -39,12 +39,33 @@ void AKaMenPawn_C::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 }
 
 void AKaMenPawn_C::IntendRight(float Axis){
-    UE_LOG(LogTemp, Warning, TEXT("%f"), Axis)
-    
     if (!KaMenMesh) {
         UE_LOG(LogTemp, Error, TEXT("No Kamen Mesh Found"))
         return;
     }
-    KaMenMesh->SetKaMenMovment(Axis, PlayerSpeed);
+    
+    //Set Motion according to the Direction and Speed
+    if (Axis != 0) {
+        
+        auto KaMenDirection = KaMenMesh->GetComponentRotation().Yaw;
+        
+        auto KaMenRight = KaMenMesh->GetKamenRight();
+        
+        //Determine whether character rotates
+        if (Axis > 0) {
+            if (KaMenDirection < 181 && KaMenDirection > 179) {
+                KaMenMesh->Rotate(-180);
+            }
+        }
+        if (Axis < 0){
+            if (KaMenDirection < 1 && KaMenDirection > -1) {
+                KaMenMesh->Rotate(180);
+            }
+        }
+        
+        //Move character
+        KaMenMesh->SetKaMenMovment(Axis, PlayerSpeed);
+    }
+    
 }
 

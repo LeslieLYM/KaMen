@@ -13,10 +13,16 @@ UCLASS(meta = (BlueprintSpawnableComponent), ClassGroup = "Meshes", DisplayName 
 class KAMEN_API UKaMenStaticMeshComponent_C : public UStaticMeshComponent
 {
 	GENERATED_BODY()
-	
+    
 public:
+    
+    FVector GetKamenRight();
+    
     void SetKaMenMovment(float Direction, float Speed);
 	
+    void Rotate(float AngleToRotate);
     
+private:
+    FVector KaMenRight = FVector(0.f);
 	
 };
