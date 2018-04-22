@@ -19,8 +19,12 @@ public:
     FVector GetKamenRight();
     
     void SetKaMenMovment(float Direction, float Speed);
+    
+    void AdjustRotation();
 	
     void Rotate(float AngleToRotate);
+    
+    void Jump(float Speed);
     
 private:
     FVector KaMenRight = FVector(0.f);
