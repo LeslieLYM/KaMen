@@ -14,7 +14,8 @@ class KAMEN_API AMainPlayerController_C : public APlayerController
 {
 	GENERATED_BODY()
 	
-	
+//protected:
+  //  virtual void SetUpInputComponent (class UInputComponent* PlayerInputComponent) override;
 	
 	
 };
