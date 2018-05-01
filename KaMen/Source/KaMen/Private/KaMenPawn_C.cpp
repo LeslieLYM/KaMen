@@ -79,7 +79,7 @@ bool AKaMenPawn_C::IsGround(){
 
 void AKaMenPawn_C::IntendRight(float Axis){
     if (!KaMenMesh) {
-        UE_LOG(LogTemp, Error, TEXT("No Kamen Mesh Found"))
+        UE_LOG(LogTemp, Error, TEXT("No Kamen Mesh Found (%s)"), *(this->GetClass()->GetName()))
         return;
     }
     

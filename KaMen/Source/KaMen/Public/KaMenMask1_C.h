@@ -16,6 +16,8 @@ class KAMEN_API UKaMenMask1_C : public UKaMenMaskMasterComponent_C
 	
 	
 public:
+    UKaMenMask1_C();
+    
     void ShowEquipped();
 	
 };

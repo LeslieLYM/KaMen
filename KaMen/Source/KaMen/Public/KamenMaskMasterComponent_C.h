@@ -6,6 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "KaMenMaskMasterComponent_C.generated.h"
 
+class UKaMenMaskStaticMeshComponent_C;
+class UKaMenStaticMeshComponent_C;
+
 UENUM()
 enum class EMaskEquip : uint8
 {
@@ -30,21 +33,25 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+public:	
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    
+    UFUNCTION(BlueprintCallable, Category = "Mask")
+    void SetMaskStaticMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet, UKaMenStaticMeshComponent_C* KamenMeshToSet);
     
     // Function to check the what key/ action is entered
     UFUNCTION(BlueprintCallable, Category = "Mask")
     void CheckMask(FKey KeyInput, int32 MaskNum);
     
-    //void SetMaskEquipped();
-    
-    //
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    void EquipMask();
 
 private:
+    UKaMenMaskStaticMeshComponent_C* KaMenMaskMesh = nullptr;
+    UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
 
+    EMaskEquip CurrentMaskState = EMaskEquip::ME_None;
     
 		
 	

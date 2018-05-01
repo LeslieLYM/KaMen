@@ -11,3 +11,5 @@
 * 07 Created MaskMasterComponent, Mask1 child, MaskStaticMeshComponent class
         Plugged MaskMaster to Pawn,
         Added Equip input for Mask 1, called CheckMask Function 
+* 08 (KaMenMaskMaster) Created CheckMask to equip correct masks
+        (KaMenMaskStaticMesh) Created Transform, set static mesh to KaMenStaticMesh

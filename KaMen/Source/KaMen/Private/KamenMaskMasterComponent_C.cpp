@@ -1,8 +1,8 @@
 // By WorldsEndLover
 
 #include "KaMenMaskMasterComponent_C.h"
-
-//Interface
+#include "KaMenStaticMeshComponent_C.h"
+#include "KaMenMaskStaticMeshComponent_C.h"
 
 
 
@@ -35,11 +35,31 @@ void UKaMenMaskMasterComponent_C::TickComponent(float DeltaTime, ELevelTick Tick
 	// ...
 }
 
+void UKaMenMaskMasterComponent_C::SetMaskStaticMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet, UKaMenStaticMeshComponent_C* KamenMeshToSet){
+    KaMenMaskMesh = KamenMaskToSet;
+    KaMenMaskMesh->SetKamenMeshReference(KamenMeshToSet);
+}
+
 void UKaMenMaskMasterComponent_C::CheckMask(FKey KeyInput, int32 MaskNum) {
+    
+    if (!KaMenMaskMesh) {
+        UE_LOG(LogTemp, Error, TEXT("No Kamen Mask Found (%s)"), *(this->GetClass()->GetName()))
+        return;
+    }
+    
     switch (MaskNum) {
         case 1:
             UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::FromInt(MaskNum))
-            //auto Mask1
+            //KaMenMaskMesh->SetEquippedMask(EMaskEquip::ME_Mask1);
+            
+            if (CurrentMaskState == EMaskEquip::ME_None) {
+                UE_LOG(LogTemp, Warning, TEXT("Current Mask change to 1"))
+                CurrentMaskState = EMaskEquip::ME_Mask1;
+            } else if (CurrentMaskState == EMaskEquip::ME_Mask1) {
+                UE_LOG(LogTemp, Warning, TEXT("Current Mask change to 0"))
+                CurrentMaskState = EMaskEquip::ME_None;
+            }
+            KaMenMaskMesh->Transform(CurrentMaskState);
             break;
             
         case 2:
@@ -56,5 +76,9 @@ void UKaMenMaskMasterComponent_C::CheckMask(FKey KeyInput, int32 MaskNum) {
             UE_LOG(LogTemp, Warning, TEXT("No Such Mask exist"))
             break;
     }
+}
+
+void UKaMenMaskMasterComponent_C::EquipMask(){
+    
 }
 
