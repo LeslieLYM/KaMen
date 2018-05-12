@@ -16,3 +16,4 @@
 * 09 (KaMenMaskStaticMesh) Created ThrowString(),
         (KaMenPawn) Created SetKamenMaskMReference(), UsePrimarySkill()
 * 10 (KaMenMaskMaster) Created GetCurrentMaskState()
+* 11 Created virtual UsePrimarySkill, overriden by child class (KaMenMask1_C)

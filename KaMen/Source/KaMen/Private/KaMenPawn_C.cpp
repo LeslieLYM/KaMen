@@ -3,6 +3,7 @@
 #include "KaMenPawn_C.h"
 #include "KaMenStaticMeshComponent_C.h"
 #include "KamenMaskMasterComponent_C.h"
+#include "KaMenMask1_C.h"
 #include "DrawDebugHelpers.h"
 
 
@@ -27,6 +28,7 @@ void AKaMenPawn_C::BeginPlay()
 {
 	Super::BeginPlay();
 
+    Mask1 = *new UKaMenMask1_C*();
 }
 
 // Called every frame
@@ -133,13 +135,13 @@ void AKaMenPawn_C::UsePrimarySkill() {
         UE_LOG(LogTemp, Error, TEXT("No Kamen Mask Mesh Found (%s)"), *(this->GetClass()->GetName()))
         return;
     }
-    auto CurrentMaskState = KaMenMaskM->GetCurrentMaskState();
     
-    UE_LOG(LogTemp, Warning, TEXT("Use skill."))
+    //KaMenMaskM->UseMatchingPrimarySkill();
+    Mask1->UseMatchingPrimarySkill();
 }
 
 void AKaMenPawn_C::JumpTrace(){
-    UE_LOG(LogTemp, Warning, TEXT("Jump Trace    asdkfj"))
+    UE_LOG(LogTemp, Warning, TEXT("Jump Trace"))
     if (IsGround()) {
         JumpCounter = 0;
         UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))

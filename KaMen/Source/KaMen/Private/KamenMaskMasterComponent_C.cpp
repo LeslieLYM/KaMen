@@ -83,6 +83,12 @@ void UKaMenMaskMasterComponent_C::CheckMask(FKey KeyInput, int32 MaskNum) {
     }
 }
 
+void UKaMenMaskMasterComponent_C::UseMatchingPrimarySkill() {
+    UE_LOG(LogTemp, Warning, TEXT("Use skill."))
+    
+    
+}
+
 void UKaMenMaskMasterComponent_C::EquipMask(){
     
 }

@@ -8,6 +8,7 @@
 
 class UKaMenStaticMeshComponent_C;
 class UKaMenMaskMasterComponent_C;
+class UKaMenMask1_C;
 
 UCLASS()
 class KAMEN_API AKaMenPawn_C : public ATestingMasterPawn_C
@@ -61,6 +62,7 @@ public:
 private:
     UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
     UKaMenMaskMasterComponent_C* KaMenMaskM = nullptr;
+    UKaMenMask1_C* Mask1 = nullptr;
     
     int32 JumpCounter = 0;
     

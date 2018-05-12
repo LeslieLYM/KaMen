@@ -19,5 +19,7 @@ public:
     UKaMenMask1_C();
     
     void ShowEquipped();
+    
+    virtual void UseMatchingPrimarySkill() override;
 	
 };

@@ -47,6 +47,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Mask")
     void CheckMask(FKey KeyInput, int32 MaskNum);
     
+    UFUNCTION(BlueprintCallable, Category = "Mask")
+    virtual void UseMatchingPrimarySkill();
+    
     void EquipMask();
 
 private:
