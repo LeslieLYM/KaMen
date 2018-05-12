@@ -38,6 +38,7 @@ public:
         //stretch lines upwards, detect if there is hook actors
             //if there is hook, attach string to hook, drag hook to move
             //need hook actor reference
+    void ThrowString();
     
     //Transform
         //Immdiately done when equip with Mask 1

@@ -21,6 +21,10 @@ void UKaMenMaskStaticMeshComponent_C::SetEquippedMask(EMaskEquip MaskT) {
     MaskEquip = MaskT;
 }
 
+void UKaMenMaskStaticMeshComponent_C::ThrowString() {
+    
+}
+
 void UKaMenMaskStaticMeshComponent_C::Transform(EMaskEquip CurrentMask) {
     
     if (!KaMenMesh) {

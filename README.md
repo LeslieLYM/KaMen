@@ -13,3 +13,5 @@
         Added Equip input for Mask 1, called CheckMask Function 
 * 08 (KaMenMaskMaster) Created CheckMask to equip correct masks
         (KaMenMaskStaticMesh) Created Transform, set static mesh to KaMenStaticMesh
+* 09 (KaMenMaskStaticMesh) Created ThrowString(),
+        (KaMenPawn) Created SetKamenMaskReference(), UsePrimarySkill()

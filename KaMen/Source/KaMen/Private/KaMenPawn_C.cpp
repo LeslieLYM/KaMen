@@ -2,6 +2,7 @@
 
 #include "KaMenPawn_C.h"
 #include "KaMenStaticMeshComponent_C.h"
+#include "KaMenMaskStaticMeshComponent_C.h"
 #include "DrawDebugHelpers.h"
 
 
@@ -15,6 +16,10 @@ AKaMenPawn_C::AKaMenPawn_C()
 //Set Kamen Reference
 void AKaMenPawn_C::SetKamenMeshReference(UKaMenStaticMeshComponent_C* KamenMeshToSet){
     KaMenMesh = KamenMeshToSet;
+}
+
+void AKaMenPawn_C::SetKamenMaskMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet) {
+    KaMenMask = KamenMaskToSet;
 }
 
 // Called when the game starts or when spawned
@@ -123,8 +128,12 @@ void AKaMenPawn_C::IntendJump(){
     UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
 }
 
+void AKaMenPawn_C::UsePrimarySkill() {
+    //auto
+}
+
 void AKaMenPawn_C::JumpTrace(){
-    UE_LOG(LogTemp, Warning, TEXT("Jump Trace"))
+    UE_LOG(LogTemp, Warning, TEXT("Jump Trace    asdkfj"))
     if (IsGround()) {
         JumpCounter = 0;
         UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
