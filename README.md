@@ -14,4 +14,5 @@
 * 08 (KaMenMaskMaster) Created CheckMask to equip correct masks
         (KaMenMaskStaticMesh) Created Transform, set static mesh to KaMenStaticMesh
 * 09 (KaMenMaskStaticMesh) Created ThrowString(),
-        (KaMenPawn) Created SetKamenMaskReference(), UsePrimarySkill()
+        (KaMenPawn) Created SetKamenMaskMReference(), UsePrimarySkill()
+* 10 (KaMenMaskMaster) Created GetCurrentMaskState()

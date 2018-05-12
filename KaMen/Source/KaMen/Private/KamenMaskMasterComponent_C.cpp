@@ -40,6 +40,11 @@ void UKaMenMaskMasterComponent_C::SetMaskStaticMeshReference(UKaMenMaskStaticMes
     KaMenMaskMesh->SetKamenMeshReference(KamenMeshToSet);
 }
 
+EMaskEquip UKaMenMaskMasterComponent_C::GetCurrentMaskState() {
+    
+    return CurrentMaskState;
+}
+
 void UKaMenMaskMasterComponent_C::CheckMask(FKey KeyInput, int32 MaskNum) {
     
     if (!KaMenMaskMesh) {

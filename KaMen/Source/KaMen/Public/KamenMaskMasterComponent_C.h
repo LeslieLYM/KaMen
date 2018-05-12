@@ -41,6 +41,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Mask")
     void SetMaskStaticMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet, UKaMenStaticMeshComponent_C* KamenMeshToSet);
     
+    EMaskEquip GetCurrentMaskState();
+    
     // Function to check the what key/ action is entered
     UFUNCTION(BlueprintCallable, Category = "Mask")
     void CheckMask(FKey KeyInput, int32 MaskNum);

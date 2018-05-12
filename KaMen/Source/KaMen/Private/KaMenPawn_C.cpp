@@ -2,7 +2,7 @@
 
 #include "KaMenPawn_C.h"
 #include "KaMenStaticMeshComponent_C.h"
-#include "KaMenMaskStaticMeshComponent_C.h"
+#include "KamenMaskMasterComponent_C.h"
 #include "DrawDebugHelpers.h"
 
 
@@ -18,8 +18,8 @@ void AKaMenPawn_C::SetKamenMeshReference(UKaMenStaticMeshComponent_C* KamenMeshT
     KaMenMesh = KamenMeshToSet;
 }
 
-void AKaMenPawn_C::SetKamenMaskMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet) {
-    KaMenMask = KamenMaskToSet;
+void AKaMenPawn_C::SetKamenMaskMeshReference(UKaMenMaskMasterComponent_C* KamenMaskMToSet) {
+    KaMenMaskM = KamenMaskMToSet;
 }
 
 // Called when the game starts or when spawned
@@ -129,7 +129,13 @@ void AKaMenPawn_C::IntendJump(){
 }
 
 void AKaMenPawn_C::UsePrimarySkill() {
-    //auto
+    if (!KaMenMaskM) {
+        UE_LOG(LogTemp, Error, TEXT("No Kamen Mask Mesh Found (%s)"), *(this->GetClass()->GetName()))
+        return;
+    }
+    auto CurrentMaskState = KaMenMaskM->GetCurrentMaskState();
+    
+    UE_LOG(LogTemp, Warning, TEXT("Use skill."))
 }
 
 void AKaMenPawn_C::JumpTrace(){

@@ -7,7 +7,7 @@
 #include "KaMenPawn_C.generated.h"
 
 class UKaMenStaticMeshComponent_C;
-class UKaMenMaskStaticMeshComponent_C;
+class UKaMenMaskMasterComponent_C;
 
 UCLASS()
 class KAMEN_API AKaMenPawn_C : public ATestingMasterPawn_C
@@ -23,7 +23,7 @@ public:
     void SetKamenMeshReference(UKaMenStaticMeshComponent_C* KamenMeshToSet);
     
     UFUNCTION(BlueprintCallable, Category = "Setup")
-    void SetKamenMaskMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet);
+    void SetKamenMaskMeshReference(UKaMenMaskMasterComponent_C* KamenMaskMToSet);
 
 protected:
 	// Called when the game starts or when spawned
@@ -60,7 +60,7 @@ public:
     
 private:
     UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
-    UKaMenMaskStaticMeshComponent_C* KaMenMask = nullptr;
+    UKaMenMaskMasterComponent_C* KaMenMaskM = nullptr;
     
     int32 JumpCounter = 0;
     
