@@ -84,8 +84,16 @@ void UKaMenMaskMasterComponent_C::CheckMask(FKey KeyInput, int32 MaskNum) {
 }
 
 void UKaMenMaskMasterComponent_C::UseMatchingPrimarySkill() {
-    UE_LOG(LogTemp, Warning, TEXT("Use skill."))
+    if (!KaMenMaskMesh) {
+        UE_LOG(LogTemp, Error, TEXT("No Kamen Mask Found (%s)"), *(this->GetClass()->GetName()))
+        return;
+    }
     
+    if (CurrentMaskState == EMaskEquip::ME_Mask1) {
+        KaMenMaskMesh->ThrowString();
+    } else {
+        UE_LOG(LogTemp, Warning, TEXT("No Mask Equipped."))
+    }
     
 }
 

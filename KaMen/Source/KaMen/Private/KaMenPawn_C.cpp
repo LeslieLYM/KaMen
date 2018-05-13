@@ -136,8 +136,8 @@ void AKaMenPawn_C::UsePrimarySkill() {
         return;
     }
     
-    //KaMenMaskM->UseMatchingPrimarySkill();
-    Mask1->UseMatchingPrimarySkill();
+    KaMenMaskM->UseMatchingPrimarySkill();
+    //Mask1->UseMatchingPrimarySkill();
 }
 
 void AKaMenPawn_C::JumpTrace(){

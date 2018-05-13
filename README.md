@@ -17,3 +17,4 @@
         (KaMenPawn) Created SetKamenMaskMReference(), UsePrimarySkill()
 * 10 (KaMenMaskMaster) Created GetCurrentMaskState()
 * 11 Created virtual UsePrimarySkill, overriden by child class (KaMenMask1_C)
+* 12 Called PrimarySkills from user to the MaskStaticMesh through MaskMaster

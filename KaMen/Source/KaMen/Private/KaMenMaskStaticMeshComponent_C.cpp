@@ -22,7 +22,7 @@ void UKaMenMaskStaticMeshComponent_C::SetEquippedMask(EMaskEquip MaskT) {
 }
 
 void UKaMenMaskStaticMeshComponent_C::ThrowString() {
-    
+    UE_LOG(LogTemp, Warning, TEXT("Use String."))
 }
 
 void UKaMenMaskStaticMeshComponent_C::Transform(EMaskEquip CurrentMask) {
