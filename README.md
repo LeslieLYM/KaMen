@@ -18,3 +18,4 @@
 * 10 (KaMenMaskMaster) Created GetCurrentMaskState()
 * 11 Created virtual UsePrimarySkill, overriden by child class (KaMenMask1_C)
 * 12 Called PrimarySkills from user to the MaskStaticMesh through MaskMaster
+* 13 (KaMenMaskMaster) Created IsHooked to determine whether there is hook above certain height

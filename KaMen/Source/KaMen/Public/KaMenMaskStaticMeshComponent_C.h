@@ -38,6 +38,8 @@ public:
         //stretch lines upwards, detect if there is hook actors
             //if there is hook, attach string to hook, drag hook to move
             //need hook actor reference
+    bool IsHooked(FHitResult& OutHit);
+    
     void ThrowString();
     
     //Transform
@@ -61,6 +63,10 @@ protected:
 private:
     UKaMenMaskMasterComponent_C* Mask1 = nullptr;
     UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
+    
+    
 	
     EMaskEquip MaskEquip = EMaskEquip::ME_None;
+    
+    FHitResult OutHit;
 };
