@@ -68,5 +68,5 @@ private:
 	
     EMaskEquip MaskEquip = EMaskEquip::ME_None;
     
-    FHitResult OutHit;
+    FHitResult OutHitResult;
 };

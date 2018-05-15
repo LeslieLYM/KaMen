@@ -64,14 +64,16 @@ void UKaMenMaskStaticMeshComponent_C::ThrowString() {
     UE_LOG(LogTemp, Warning, TEXT("Use String."))
     
     
-    UE_LOG(LogTemp, Warning, TEXT("Hit : %s"), IsHooked(OutHit)? TEXT("True") : TEXT("False"))
+    UE_LOG(LogTemp, Warning, TEXT("Hit : %s"), IsHooked(OutHitResult)? TEXT("True") : TEXT("False"))
     
     //Detect whether string can attach to a hook
     //if IsHooked
-    if (IsHooked(OutHit)) {
-        auto* abc = OutHit.GetActor();
+    if (IsHooked(OutHitResult)) {
+        auto* abc = OutHitResult.GetActor();
         
-        //auto bbc = OutHit
+        FVector bbc = OutHitResult.ImpactPoint;
+        
+        UE_LOG(LogTemp, Warning, TEXT("Hit Vector : %s"), *(bbc.ToString()))
     }
         //Spawn String
         //Attach pawn offset to the hook,
