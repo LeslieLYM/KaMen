@@ -69,11 +69,18 @@ void UKaMenMaskStaticMeshComponent_C::ThrowString() {
     //Detect whether string can attach to a hook
     //if IsHooked
     if (IsHooked(OutHitResult)) {
-        auto* abc = OutHitResult.GetActor();
+        auto* HitActor = OutHitResult.GetActor();
         
-        FVector bbc = OutHitResult.ImpactPoint;
+        if (HitActor->ActorHasTag(TEXT("Hook"))) {
+            UE_LOG(LogTemp, Warning, TEXT("Has Tag."))
+            FVector HitLocation = OutHitResult.ImpactPoint;
+            
+            UE_LOG(LogTemp, Warning, TEXT("Hit Vector : %s"), *(HitLocation.ToString()))
+            DrawDebugPoint(GetWorld(), HitLocation, 3, FColor(255,255,0), false, 5.f);
+            
+            GetOwner()->AttachToActor(HitActor, FAttachmentTransformRules(EAttachmentRule::KeepWorld, false), FName(""));
+        }
         
-        UE_LOG(LogTemp, Warning, TEXT("Hit Vector : %s"), *(bbc.ToString()))
     }
         //Spawn String
         //Attach pawn offset to the hook,

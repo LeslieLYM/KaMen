@@ -20,3 +20,4 @@
 * 12 Called PrimarySkills from user to the MaskStaticMesh through MaskMaster
 * 13 (KaMenMaskMaster) Created IsHooked to determine whether there is hook above certain height
 * 14 Created HookToAttach class, HookToAttach BP
+* 15 Created PuppetPawn class, BP, Ready for swapping pawn in Player Controller
