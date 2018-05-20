@@ -7,7 +7,7 @@
 #include "MainPlayerController_C.generated.h"
 
 class AKaMenPawn_C;
-//class APuppetPawn_C
+class APuppetPawn_C;
 
 /**
  * 
@@ -20,12 +20,26 @@ class KAMEN_API AMainPlayerController_C : public APlayerController
 public:
     virtual void BeginPlay() override;
     
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    AKaMenPawn_C* GetKamenPawn();
+    
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    APuppetPawn_C* GetPuppetPawn();
+    
 //protected:
   //  virtual void SetUpInputComponent (class UInputComponent* PlayerInputComponent) override;
     
 private:
-    AKaMenPawn_C* KamenPawn;
-    //APuppetPawn_C* PuppetPawn;
+    AKaMenPawn_C* KamenPawn = nullptr;
+    APuppetPawn_C* PuppetPawn = nullptr;
+    
+    FTransform PlayerCurrentTransform;
+    
+    UPROPERTY(EditDefaultsOnly, Category = Setup)
+    TSubclassOf<AKaMenPawn_C> KuuBlueprint;
+    
+    UPROPERTY(EditDefaultsOnly, Category = Setup)
+    TSubclassOf<APuppetPawn_C> PuppetBlueprint;
 	
 	
 };
