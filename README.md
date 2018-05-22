@@ -28,3 +28,4 @@
 * 18 Created PuppetStaticMeshComponent, Ready PuppetPawn to perform actions
 * 19 (PuppetPawn, PuppetStaticMeshComponent) Ready functions
         (PuppetPawn) Attached PuppetStaticMeshComponent
+* 20 (MainPlayerController) Set switch pawn locations

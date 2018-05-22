@@ -75,11 +75,17 @@ void AMainPlayerController_C::IntendSwitchPawn(APawn* CurrentPawn, FTransform Cu
     
     if (PawnState == EPawnState::PS_Kuu) {
         UE_LOG(LogTemp, Warning, TEXT("Spawn KamenPawn."))
-        PawnToSpawn = GetWorld()->SpawnActor<AKaMenPawn_C>(KuuBlueprint, PlayerCurrentTransform.GetLocation(), PlayerCurrentTransform.GetRotation().Rotator(), SpawnParams);
+        auto SpawnLocation = PlayerCurrentTransform.GetLocation() + FVector(0.f, 0.f, 47.f);
+        auto SpawnRotation = PlayerCurrentTransform.GetRotation().Rotator();
+        
+        PawnToSpawn = GetWorld()->SpawnActor<AKaMenPawn_C>(KuuBlueprint, SpawnLocation, SpawnRotation, SpawnParams);
         this->Possess(PawnToSpawn);
     } else if (PawnState == EPawnState::PS_Puppet) {
         UE_LOG(LogTemp, Warning, TEXT("Spawn PuppetPawn."))
-        PawnToSpawn = GetWorld()->SpawnActor<APuppetPawn_C>(PuppetBlueprint, PlayerCurrentTransform.GetLocation(), PlayerCurrentTransform.GetRotation().Rotator(), SpawnParams);
+        auto SpawnLocation = PlayerCurrentTransform.GetLocation() + FVector(0.f, 0.f, 47.f);
+        auto SpawnRotation = PlayerCurrentTransform.GetRotation().Rotator();
+        
+        PawnToSpawn = GetWorld()->SpawnActor<APuppetPawn_C>(PuppetBlueprint, SpawnLocation, SpawnRotation, SpawnParams);
         this->Possess(PawnToSpawn);
     }
     
