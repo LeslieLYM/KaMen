@@ -25,3 +25,4 @@
         Created Get KamenPawn, Get PuppetPawn
         Tried to swap possession of Pawns
 * 17 (MainPlayerController) Created IntendSwitchPawn to swap possession of pawns 
+* 18 Created PuppetStaticMeshComponent, Ready PuppetPawn to perform actions
