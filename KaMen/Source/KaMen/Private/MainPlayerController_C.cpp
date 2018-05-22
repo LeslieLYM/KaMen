@@ -15,6 +15,7 @@ void AMainPlayerController_C::BeginPlay() {
     SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     KamenPawn = GetWorld()->SpawnActor<AKaMenPawn_C>(KuuBlueprint, FVector(-100.f), FRotator(0.f), SpawnParams);
     PuppetPawn = GetWorld()->SpawnActor<APuppetPawn_C>(PuppetBlueprint, FVector(-100.f), FRotator(0.f), SpawnParams);
+    
 }
 
 AKaMenPawn_C* AMainPlayerController_C::GetKamenPawn() {
@@ -28,3 +29,62 @@ APuppetPawn_C* AMainPlayerController_C::GetPuppetPawn() {
     return PuppetPawn;
 }
 
+void AMainPlayerController_C::SetCurrentPawnTransform(FTransform CurrentTransform) {
+    PlayerCurrentTransform = CurrentTransform;
+}
+
+FTransform AMainPlayerController_C::GetCurrentPawnTransform() {
+    
+    return PlayerCurrentTransform;
+}
+
+void AMainPlayerController_C::IntendSwitchPawn(APawn* CurrentPawn, FTransform CurrentTransform) {
+    if (!CurrentPawn) {
+        UE_LOG(LogTemp, Error, TEXT("No Pawn Found."))
+        return;
+    }
+    
+    if (CurrentTransform.GetScale3D() != FVector(1.f)) {
+        UE_LOG(LogTemp, Error, TEXT("No Transform Found."))
+        return;
+    }
+    
+    APawn* CurrentPawnReceive = CurrentPawn;
+    
+    //Record this pawn location
+    SetCurrentPawnTransform(CurrentTransform);
+    
+    //Change State of Pawn
+    if (Cast<AKaMenPawn_C>(CurrentPawnReceive)) {
+        UE_LOG(LogTemp, Warning, TEXT("KamenPawn."))
+        PawnState = EPawnState::PS_Puppet;
+    } else if (Cast<APuppetPawn_C>(CurrentPawnReceive)) {
+        UE_LOG(LogTemp, Warning, TEXT("PuppetPawn."))
+        PawnState = EPawnState::PS_Kuu;
+    }
+    //Unpossess
+    this->UnPossess();
+    //Destroy this pawn
+    CurrentPawn->Destroy();
+    //Spawn new pawn
+    //Set pawn to previous location location
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    
+    APawn* PawnToSpawn;
+    
+    if (PawnState == EPawnState::PS_Kuu) {
+        UE_LOG(LogTemp, Warning, TEXT("Spawn KamenPawn."))
+        PawnToSpawn = GetWorld()->SpawnActor<AKaMenPawn_C>(KuuBlueprint, PlayerCurrentTransform.GetLocation(), PlayerCurrentTransform.GetRotation().Rotator(), SpawnParams);
+        this->Possess(PawnToSpawn);
+    } else if (PawnState == EPawnState::PS_Puppet) {
+        UE_LOG(LogTemp, Warning, TEXT("Spawn PuppetPawn."))
+        PawnToSpawn = GetWorld()->SpawnActor<APuppetPawn_C>(PuppetBlueprint, PlayerCurrentTransform.GetLocation(), PlayerCurrentTransform.GetRotation().Rotator(), SpawnParams);
+        this->Possess(PawnToSpawn);
+    }
+    
+    //Possess
+    //this->Possess(PawnToSpawn);
+    
+    
+}
