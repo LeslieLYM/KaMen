@@ -3,6 +3,7 @@
 #include "PuppetPawn_C.h"
 #include "KaMenStaticMeshComponent_C.h"
 #include "KamenMaskMasterComponent_C.h"
+#include "PuppetStaticMeshComponent_C.h"
 #include "DrawDebugHelpers.h"
 
 APuppetPawn_C::APuppetPawn_C() {
@@ -10,8 +11,8 @@ APuppetPawn_C::APuppetPawn_C() {
     PrimaryActorTick.bCanEverTick = true;
 }
 
-void APuppetPawn_C::SetKamenMeshReference(UKaMenStaticMeshComponent_C *KamenMeshToSet) {
-    KaMenMesh = KamenMeshToSet;
+void APuppetPawn_C::SetPuppetMeshReference(UPuppetStaticMeshComponent_C *PuppetMeshToSet) {
+    PuppetMesh = PuppetMeshToSet;
 }
 
 void APuppetPawn_C::SetKamenMaskMeshReference(UKaMenMaskMasterComponent_C *KamenMaskMToSet) {
@@ -27,32 +28,40 @@ void APuppetPawn_C::SetupPlayerInputComponent(class UInputComponent *PlayerInput
 }
 
 void APuppetPawn_C::IntendRight(float Axis) {
-    if (!KaMenMesh) {
-        UE_LOG(LogTemp, Error, TEXT("No Kamen Mesh Found (%s)"), *(this->GetClass()->GetName()))
+    if (!PuppetMesh) {
+        UE_LOG(LogTemp, Error, TEXT("No Puppet Mesh Found (%s)"), *(this->GetClass()->GetName()))
         return;
     }
     
     //Set Motion according to the Direction and Speed
     if (Axis != 0) {
-      /*  KaMenMesh->AdjustRotation();
-        auto KaMenDirection = KaMenMesh->GetComponentRotation().Yaw;
-        auto KaMenRight = KaMenMesh->GetKamenRight();
+        PuppetMesh->AdjustRotation();
+        auto PuppetDirection = PuppetMesh->GetComponentRotation().Yaw;
+        auto PuppetRight = PuppetMesh->GetPuppetRight();
         
-        UE_LOG(LogTemp, Warning, TEXT("Rotation : %f"), KaMenDirection)
+        UE_LOG(LogTemp, Warning, TEXT("Rotation : %f"), PuppetDirection)
         
         //Determine whether character rotates
         if (Axis > 0) {
-            if (KaMenDirection < 181 && KaMenDirection > 179) {
-                KaMenMesh->Rotate(-180);
+            if (PuppetDirection < 181 && PuppetDirection > 179) {
+                PuppetMesh->Rotate(-180);
             }
         }
         if (Axis < 0){
-            if (KaMenDirection < 1 && KaMenDirection > -1) {
-                KaMenMesh->Rotate(180);
+            if (PuppetDirection < 1 && PuppetDirection > -1) {
+                PuppetMesh->Rotate(180);
             }
         }
         
         //Move character
-        KaMenMesh->SetKaMenMovment(Axis, PlayerSpeed); */
+        PuppetMesh->SetPuppetMovment(Axis, PlayerSpeed);
     }
+}
+
+void APuppetPawn_C::IntendJump() {
+    
+}
+
+void APuppetPawn_C::JumpTrace() {
+    
 }

@@ -8,6 +8,7 @@
 
 class UKaMenStaticMeshComponent_C;
 class UKaMenMaskMasterComponent_C;
+class UPuppetStaticMeshComponent_C;
 
 /**
  * 
@@ -22,7 +23,7 @@ public:
     APuppetPawn_C();
     
     UFUNCTION(BlueprintCallable, Category = "Setup")
-    void SetKamenMeshReference(UKaMenStaticMeshComponent_C* KamenMeshToSet);
+    void SetPuppetMeshReference(UPuppetStaticMeshComponent_C* PuppetMeshToSet);
     
     UFUNCTION(BlueprintCallable, Category = "Setup")
     void SetKamenMaskMeshReference(UKaMenMaskMasterComponent_C* KamenMaskMToSet);
@@ -32,9 +33,9 @@ protected:
     virtual void BeginPlay() override;
     
     FTimerHandle JumpTraceTimer;
- /*
+ 
 public:
-    // Called every frame
+ /*   // Called every frame
     virtual void Tick(float DeltaTime) override; */
     
     // Called to bind functionality to input
@@ -45,13 +46,13 @@ public:
     // Passes a player intended movement to the corresponding Unit, pawn mesh
     UFUNCTION(BlueprintCallable, Category = "Player Movements")
     void IntendRight(float Axis);
-    /*
+    
     UFUNCTION(BlueprintCallable, Category = "Player Movements")
     void IntendJump();
     
-    UFUNCTION(BlueprintCallable, Category = "Player Abilities")
+    /*UFUNCTION(BlueprintCallable, Category = "Player Abilities")
     void UsePrimarySkill();
-    
+    */
     void JumpTrace();
     
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
@@ -59,10 +60,10 @@ public:
     
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
     float PlayerJumpStrength = 5.f;
-  */
+
     
 private:
-    UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
+    UPuppetStaticMeshComponent_C* PuppetMesh = nullptr;
     UKaMenMaskMasterComponent_C* KaMenMaskM = nullptr;
     //UKaMenMask1_C* Mask1 = nullptr;
     
