@@ -41,14 +41,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Mask")
     void SetMaskStaticMeshReference(UKaMenMaskStaticMeshComponent_C* KamenMaskToSet, UKaMenStaticMeshComponent_C* KamenMeshToSet);
     
+    
     EMaskEquip GetCurrentMaskState();
     
     // Function to check the what key/ action is entered
     UFUNCTION(BlueprintCallable, Category = "Mask")
-    void CheckMask(FKey KeyInput, int32 MaskNum);
+    void CheckMask(int32 MaskNum);
     
     UFUNCTION(BlueprintCallable, Category = "Mask")
     virtual void UseMatchingPrimarySkill();
+    
+    bool IsHooked(FHitResult& OutHit);
+    
+    void ThrowStringMM();
     
     void EquipMask();
 
@@ -56,7 +61,10 @@ private:
     UKaMenMaskStaticMeshComponent_C* KaMenMaskMesh = nullptr;
     UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
 
+    FHitResult OutHitResult;
+    
     EMaskEquip CurrentMaskState = EMaskEquip::ME_None;
+    int32 CurrentState = 2;
     
 		
 	

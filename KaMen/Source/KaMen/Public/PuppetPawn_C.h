@@ -35,13 +35,13 @@ protected:
     FTimerHandle JumpTraceTimer;
  
 public:
- /*   // Called every frame
-    virtual void Tick(float DeltaTime) override; */
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
     
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
  
-    //bool IsGround();
+    bool IsGround();
     
     // Passes a player intended movement to the corresponding Unit, pawn mesh
     UFUNCTION(BlueprintCallable, Category = "Player Movements")
@@ -50,16 +50,16 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Player Movements")
     void IntendJump();
     
-    /*UFUNCTION(BlueprintCallable, Category = "Player Abilities")
+    UFUNCTION(BlueprintCallable, Category = "Player Abilities")
     void UsePrimarySkill();
-    */
+    
     void JumpTrace();
     
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
-    float PlayerSpeed = 8.f;
+    float PlayerSpeed = 12.f;
     
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
-    float PlayerJumpStrength = 5.f;
+    float PlayerJumpStrength = 8.f;
 
     
 private:

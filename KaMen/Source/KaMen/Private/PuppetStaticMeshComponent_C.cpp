@@ -11,7 +11,11 @@ FVector UPuppetStaticMeshComponent_C::GetPuppetRight() {
 }
 
 void UPuppetStaticMeshComponent_C::SetPuppetMovment(float Direction, float Speed) {
+    auto Velocity = PuppetRight * Direction * Speed * 100;
+    auto PuppetRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
     
+    //Move the mesh
+    PuppetRoot->SetAllPhysicsLinearVelocity(Velocity);
 }
 
 void UPuppetStaticMeshComponent_C::AdjustRotation() {

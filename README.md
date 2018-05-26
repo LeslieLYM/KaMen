@@ -29,3 +29,4 @@
 * 19 (PuppetPawn, PuppetStaticMeshComponent) Ready functions
         (PuppetPawn) Attached PuppetStaticMeshComponent
 * 20 (MainPlayerController) Set switch pawn locations
+* 21 (KaMenMaskMaster) Restructure Abilities

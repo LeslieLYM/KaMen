@@ -3,6 +3,7 @@
 #include "MainPlayerController_C.h"
 #include "KaMenPawn_C.h"
 #include "PuppetPawn_C.h"
+#include "KamenMaskMasterComponent_C.h"
 
 
 void AMainPlayerController_C::BeginPlay() {
@@ -33,12 +34,21 @@ void AMainPlayerController_C::SetCurrentPawnTransform(FTransform CurrentTransfor
     PlayerCurrentTransform = CurrentTransform;
 }
 
+void AMainPlayerController_C::SetMaskMasterReference(UKaMenMaskMasterComponent_C* MaskMToSet) {
+    KamenMaskM = MaskMToSet;
+}
+
 FTransform AMainPlayerController_C::GetCurrentPawnTransform() {
     
     return PlayerCurrentTransform;
 }
 
 void AMainPlayerController_C::IntendSwitchPawn(APawn* CurrentPawn, FTransform CurrentTransform) {
+    if (!KamenMaskM) {
+        UE_LOG(LogTemp, Error, TEXT("No Mask Master Found."))
+        return;
+    }
+    
     if (!CurrentPawn) {
         UE_LOG(LogTemp, Error, TEXT("No Pawn Found."))
         return;

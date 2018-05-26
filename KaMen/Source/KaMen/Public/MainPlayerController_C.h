@@ -16,6 +16,7 @@ enum class EPawnState : uint8
 
 class AKaMenPawn_C;
 class APuppetPawn_C;
+class UKaMenMaskMasterComponent_C;
 
 /**
  * 
@@ -35,6 +36,9 @@ public:
     APuppetPawn_C* GetPuppetPawn();
     
     UFUNCTION(BlueprintCallable, Category = "Controlling Pawn")
+    void SetMaskMasterReference(UKaMenMaskMasterComponent_C* MaskMToSet);
+    
+    UFUNCTION(BlueprintCallable, Category = "Controlling Pawn")
     void SetCurrentPawnTransform(FTransform CurrentTransform);
     
     UFUNCTION(BlueprintCallable, Category = "Controlling Pawn")
@@ -49,6 +53,7 @@ public:
 private:
     AKaMenPawn_C* KamenPawn = nullptr;
     APuppetPawn_C* PuppetPawn = nullptr;
+    UKaMenMaskMasterComponent_C* KamenMaskM = nullptr;
     
     FTransform PlayerCurrentTransform;
     
