@@ -30,3 +30,4 @@
         (PuppetPawn) Attached PuppetStaticMeshComponent
 * 20 (MainPlayerController) Set switch pawn locations
 * 21 (KaMenMaskMaster) Restructure Abilities
+* 22 Hook mechanics done, building player zoo

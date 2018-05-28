@@ -35,7 +35,7 @@ bool APuppetPawn_C::IsGround() {
     FHitResult OutHit; //Hit Result stored on impact
     
     FVector SweepStart = GetActorLocation();
-    FVector SweepEnd = GetActorLocation() + FVector(0.f, 0.f, -10.f);
+    FVector SweepEnd = GetActorLocation() + FVector(0.f, 0.f, -60.f);
     
     TArray<TEnumAsByte<EObjectTypeQuery>> TraceObjectType;
     TraceObjectType.Add(UEngineTypes::ConvertToObjectType(ECC_WorldStatic));
@@ -112,7 +112,10 @@ void APuppetPawn_C::IntendJump() {
         PuppetMesh->Jump(PlayerJumpStrength);
         JumpCounter++;
         GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, TimerDelay, true);
+        //GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, );
     }
+    
+    UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
 }
 
 void APuppetPawn_C::UsePrimarySkill() {
@@ -125,7 +128,7 @@ void APuppetPawn_C::UsePrimarySkill() {
     if (ABC == EMaskEquip::ME_Mask1) {
         UE_LOG(LogTemp, Warning, TEXT("a Mask 1"))
     }
-    KaMenMaskM->UseMatchingPrimarySkill();
+    KaMenMaskM->ThrowStringMM();
 }
 
 void APuppetPawn_C::JumpTrace() {

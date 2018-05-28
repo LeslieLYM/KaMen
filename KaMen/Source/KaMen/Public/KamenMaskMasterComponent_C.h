@@ -56,12 +56,18 @@ public:
     void ThrowStringMM();
     
     void EquipMask();
+    
+    UPROPERTY(BlueprintReadOnly, Category = "Mask 1")
+    bool IsAttached = false;
+    
+    UPROPERTY(BlueprintReadOnly, Category = "Mask 1")
+    FHitResult OutHitResult;
 
 private:
     UKaMenMaskStaticMeshComponent_C* KaMenMaskMesh = nullptr;
     UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
 
-    FHitResult OutHitResult;
+    
     
     EMaskEquip CurrentMaskState = EMaskEquip::ME_None;
     int32 CurrentState = 2;

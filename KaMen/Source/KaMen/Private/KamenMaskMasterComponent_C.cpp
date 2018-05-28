@@ -121,7 +121,7 @@ bool UKaMenMaskMasterComponent_C::IsHooked(FHitResult& OutHit) {
     //FHitResult OutHit; //Hit Result stored on impact
     
     FVector SweepStart = GetOwner()->GetActorLocation();
-    FVector SweepEnd = SweepStart + FVector(0.f, 0.f, 300.f);
+    FVector SweepEnd = SweepStart + FVector(0.f, 0.f, 400.f);
     
     TArray<TEnumAsByte<EObjectTypeQuery>> TraceObjectType;
     TraceObjectType.Add(UEngineTypes::ConvertToObjectType(ECC_WorldStatic));
@@ -165,6 +165,7 @@ void UKaMenMaskMasterComponent_C::ThrowStringMM() {
     //if IsHooked
     if (IsHooked(OutHitResult)) {
         auto* HitActor = OutHitResult.GetActor();
+        auto AttachLocation = HitActor->GetActorLocation() + FVector(0.f, 0.f, -300.f);
         
         if (HitActor->ActorHasTag(TEXT("Hook"))) {
             UE_LOG(LogTemp, Warning, TEXT("Has Tag."))
@@ -173,7 +174,19 @@ void UKaMenMaskMasterComponent_C::ThrowStringMM() {
             UE_LOG(LogTemp, Warning, TEXT("Hit Vector : %s"), *(HitLocation.ToString()))
             DrawDebugPoint(GetWorld(), HitLocation, 3, FColor(255,255,0), false, 5.f);
             
-            GetOwner()->AttachToActor(HitActor, FAttachmentTransformRules(EAttachmentRule::KeepWorld, false), FName(""));
+            //  GetOwner()->AttachToActor(HitActor, FAttachmentTransformRules(EAttachmentRule::KeepWorld, false), FName(""));
+            
+            if (GetOwner()->GetActorLocation() != HitActor->GetActorLocation()) {
+                UE_LOG(LogTemp, Warning, TEXT("Nope."))
+                auto KuuRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+                auto KuuPawn = GetOwner();
+                
+                KuuRoot->SetAllPhysicsLinearVelocity(FVector(0.f));
+                //GetOwner()->SetActorLocation(AttachLocation);
+                KuuRoot->SetEnableGravity(false);
+                IsAttached = true;
+                
+            }
         }
         
     }
