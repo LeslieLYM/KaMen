@@ -38,6 +38,7 @@ void UKaMenStaticMeshComponent_C::Rotate(float AngleToRotate){
 }
 
 void UKaMenStaticMeshComponent_C::Jump(float Speed){
+    auto CurrentVelocity = GetOwner()->GetVelocity();
     auto Velocity = GetUpVector() * Speed * 100;
     auto ImpulseLocation = GetComponentLocation();
     auto KamenRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());

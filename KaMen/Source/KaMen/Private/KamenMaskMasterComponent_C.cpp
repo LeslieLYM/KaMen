@@ -49,16 +49,10 @@ EMaskEquip UKaMenMaskMasterComponent_C::GetCurrentMaskState() {
 
 
 void UKaMenMaskMasterComponent_C::CheckMask(int32 MaskNum) {
-    /*
-    if (!KaMenMaskMesh) {
-        UE_LOG(LogTemp, Error, TEXT("No Kamen Mask Found (%s)"), *(this->GetClass()->GetName()))
-        return;
-    }*/
-    
+    //Check which mask state is the player currently have
     switch (MaskNum) {
         case 1:
             UE_LOG(LogTemp, Warning, TEXT("%s"), *FString::FromInt(MaskNum))
-            //KaMenMaskMesh->SetEquippedMask(EMaskEquip::ME_Mask1);
             
             if (CurrentMaskState == EMaskEquip::ME_None) {
                 UE_LOG(LogTemp, Warning, TEXT("Current Mask change to 1"))
@@ -130,22 +124,7 @@ bool UKaMenMaskMasterComponent_C::IsHooked(FHitResult& OutHit) {
     
     FCollisionQueryParams TraceParameter (FName(TEXT("")), false, GetOwner());
     
-    /*DrawDebugSphere(<#const UWorld *InWorld#>, <#const FVector &Center#>, <#float Radius#>, <#int32 Segments#>, <#const FColor &Color#>)
-     
-     //DrawDebugCapsule(<#const UWorld *InWorld#>, <#const FVector &Center#>, <#float HalfHeight#>, <#float Radius#>, <#const FQuat &Rotation#>, <#const FColor &Color#>) */
-    
     DrawDebugSphere(GetWorld(), SweepStart, JumpColSphere.GetSphereRadius(), 2, FColor(255, 0, 0), false, 5.f);
-    
-    /*bool SweepSingleByObjectType
-     (
-     struct FHitResult & OutHit,
-     const FVector & Start,
-     const FVector & End,
-     const FQuat & Rot,     FQuat::Identity
-     const FCollisionObjectQueryParams & ObjectQueryParams,
-     const FCollisionShape & CollisionShape,
-     const FCollisionQueryParams & Params
-     ) */
     
     //Sphere trace for jumping
     auto bIsHit = GetWorld()->SweepSingleByObjectType(OutHit, SweepStart, SweepEnd, FQuat::Identity, TraceObjectType, JumpColSphere, TraceParameter);
@@ -162,7 +141,7 @@ void UKaMenMaskMasterComponent_C::ThrowStringMM() {
     UE_LOG(LogTemp, Warning, TEXT("Hit : %s"), IsHooked(OutHitResult)? TEXT("True") : TEXT("False"))
     
     //Detect whether string can attach to a hook
-    //if IsHooked
+    //if it is hooked, attach the current pawn to the
     if (IsHooked(OutHitResult)) {
         auto* HitActor = OutHitResult.GetActor();
         auto AttachLocation = HitActor->GetActorLocation() + FVector(0.f, 0.f, -300.f);
@@ -171,28 +150,48 @@ void UKaMenMaskMasterComponent_C::ThrowStringMM() {
             UE_LOG(LogTemp, Warning, TEXT("Has Tag."))
             FVector HitLocation = OutHitResult.ImpactPoint;
             
+            auto KuuRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+            
             UE_LOG(LogTemp, Warning, TEXT("Hit Vector : %s"), *(HitLocation.ToString()))
             DrawDebugPoint(GetWorld(), HitLocation, 3, FColor(255,255,0), false, 5.f);
+
             
-            //  GetOwner()->AttachToActor(HitActor, FAttachmentTransformRules(EAttachmentRule::KeepWorld, false), FName(""));
-            
-            if (GetOwner()->GetActorLocation() != HitActor->GetActorLocation()) {
+            if (GetOwner()->GetActorLocation() != AttachLocation) {
                 UE_LOG(LogTemp, Warning, TEXT("Nope."))
-                auto KuuRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+                
                 auto KuuPawn = GetOwner();
                 
                 KuuRoot->SetAllPhysicsLinearVelocity(FVector(0.f));
-                //GetOwner()->SetActorLocation(AttachLocation);
-                KuuRoot->SetEnableGravity(false);
-                IsAttached = true;
+                GetOwner()->SetActorLocation(AttachLocation + FVector(0.f, 0.f, -47.f));
                 
             }
+            KuuRoot->SetEnableGravity(false);
+            IsAttached = true;
         }
         
     }
-    //Spawn String
-    //Attach pawn offset to the hook,
-    //allow hook to move by keys
-    //else
-    //Set IsFailHook true *For animation*
+    
 }
+
+
+
+/*
+ 
+ DrawDebugSphere(<#const UWorld *InWorld#>, <#const FVector &Center#>, <#float Radius#>, <#int32 Segments#>, <#const FColor &Color#>)
+ 
+ //DrawDebugCapsule(<#const UWorld *InWorld#>, <#const FVector &Center#>, <#float HalfHeight#>, <#float Radius#>, <#const FQuat &Rotation#>, <#const FColor &Color#>)
+
+ bool SweepSingleByObjectType
+ (
+ struct FHitResult & OutHit,
+ const FVector & Start,
+ const FVector & End,
+ const FQuat & Rot,     FQuat::Identity
+ const FCollisionObjectQueryParams & ObjectQueryParams,
+ const FCollisionShape & CollisionShape,
+ const FCollisionQueryParams & Params
+ )
+
+ //DrawDebugLine(GetWorld(), AttachLocation, HitActor->GetActorLocation(), FColor(255,0,0),false, 5.f, 0, 12.333);
+ //  GetOwner()->AttachToActor(HitActor, FAttachmentTransformRules(EAttachmentRule::KeepWorld, false), FName(""));
+*/

@@ -53,11 +53,16 @@ public:
     
     void JumpTrace();
     
+    void IncreaseGravity();
+    
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
     float PlayerSpeed = 8.f;
     
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
-    float PlayerJumpStrength = 5.f;;
+    float PlayerJumpStrength = 36.f;;
+    
+    UPROPERTY(BlueprintReadOnly, Category = "Player Movements Attributes ")
+    bool IsJump = false;
     
 private:
     UKaMenStaticMeshComponent_C* KaMenMesh = nullptr;
@@ -66,7 +71,7 @@ private:
     
     int32 JumpCounter = 0;
     
-    float TimerDelay = 0.2f;
+    float TimerDelay = 0.25f;
 
     //AKaMenPawn_C* AKaMenPawn;
 	

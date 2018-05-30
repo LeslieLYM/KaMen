@@ -47,6 +47,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Controlling Pawn")
     void IntendSwitchPawn(APawn* CurrentPawn, FTransform CurrentTransform);
     
+    UPROPERTY(BlueprintReadOnly, Category = "Player Movements Attributes ")
+    bool IsJump = false;
+    
 //protected:
   //  virtual void SetUpInputComponent (class UInputComponent* PlayerInputComponent) override;
     

@@ -57,7 +57,7 @@ public:
     
     void EquipMask();
     
-    UPROPERTY(BlueprintReadOnly, Category = "Mask 1")
+    UPROPERTY(BlueprintReadWrite, Category = "Mask 1")
     bool IsAttached = false;
     
     UPROPERTY(BlueprintReadOnly, Category = "Mask 1")

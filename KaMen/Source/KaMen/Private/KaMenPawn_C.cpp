@@ -29,6 +29,9 @@ void AKaMenPawn_C::BeginPlay()
 	Super::BeginPlay();
 
     Mask1 = *new UKaMenMask1_C*();
+    
+    
+    GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &AKaMenPawn_C::JumpTrace, TimerDelay, true);
 }
 
 // Called every frame
@@ -48,12 +51,12 @@ bool AKaMenPawn_C::IsGround(){
     FHitResult OutHit; //Hit Result stored on impact
     
     FVector SweepStart = GetActorLocation();
-    FVector SweepEnd = GetActorLocation() + FVector(0.f, 0.f, -10.f);
+    FVector SweepEnd = GetActorLocation() + FVector(0.f, 0.f, -80.f);
     
     TArray<TEnumAsByte<EObjectTypeQuery>> TraceObjectType;
     TraceObjectType.Add(UEngineTypes::ConvertToObjectType(ECC_WorldStatic));
     
-    FCollisionShape JumpColSphere = FCollisionShape::MakeSphere(50.f); //Make sphere collision shape
+    FCollisionShape JumpColSphere = FCollisionShape::MakeSphere(10.f); //Make sphere collision shape
     
     FCollisionQueryParams TraceParameter (FName(TEXT("")), false, GetOwner());
     
@@ -92,12 +95,12 @@ void AKaMenPawn_C::IntendRight(float Axis){
     
     //Set Motion according to the Direction and Speed
     if (Axis != 0) {
-        KaMenMesh->AdjustRotation();
+        //KaMenMesh->AdjustRotation();
         auto KaMenDirection = KaMenMesh->GetComponentRotation().Yaw;
         auto KaMenRight = KaMenMesh->GetKamenRight();
         
         UE_LOG(LogTemp, Warning, TEXT("Rotation : %f"), KaMenDirection)
-        
+        /*
         //Determine whether character rotates
         if (Axis > 0) {
             if (KaMenDirection < 181 && KaMenDirection > 179) {
@@ -109,22 +112,27 @@ void AKaMenPawn_C::IntendRight(float Axis){
                 KaMenMesh->Rotate(180);
             }
         }
-        
+        */
         //Move character
         KaMenMesh->SetKaMenMovment(Axis, PlayerSpeed);
     }
 }
 
 void AKaMenPawn_C::IntendJump(){
+    //Check if character is on ground in order to perform double jump
     if (IsGround() && JumpCounter < 1) {
         KaMenMesh->Jump(PlayerJumpStrength);
         JumpCounter++;
-        GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &AKaMenPawn_C::JumpTrace, TimerDelay, true);
+        //GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &AKaMenPawn_C::JumpTrace, TimerDelay, true);
+        
+        IsJump = true;
         
     } else if (!IsGround() && JumpCounter < 2) {
         KaMenMesh->Jump(PlayerJumpStrength);
         JumpCounter++;
-        GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &AKaMenPawn_C::JumpTrace, TimerDelay, true);
+        //GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &AKaMenPawn_C::JumpTrace, TimerDelay, true);
+        
+        IsJump = true;
     }
     
     UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
@@ -137,7 +145,6 @@ void AKaMenPawn_C::UsePrimarySkill() {
     }
     
     KaMenMaskM->UseMatchingPrimarySkill();
-    //Mask1->UseMatchingPrimarySkill();
 }
 
 void AKaMenPawn_C::JumpTrace(){
@@ -145,8 +152,13 @@ void AKaMenPawn_C::JumpTrace(){
     if (IsGround()) {
         JumpCounter = 0;
         UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
-        GetWorldTimerManager().ClearTimer(JumpTraceTimer);
+        //GetWorldTimerManager().ClearTimer(JumpTraceTimer);
+        
+        IsJump = false;
     }
 }
 
+void AKaMenPawn_C::IncreaseGravity() {
+    
+}
 

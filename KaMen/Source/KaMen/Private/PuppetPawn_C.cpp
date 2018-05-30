@@ -21,6 +21,8 @@ void APuppetPawn_C::SetKamenMaskMeshReference(UKaMenMaskMasterComponent_C *Kamen
 
 void APuppetPawn_C::BeginPlay() {
     Super::BeginPlay();
+    
+    GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, TimerDelay, true);
 }
 
 void APuppetPawn_C::Tick(float DeltaTime) {
@@ -35,12 +37,12 @@ bool APuppetPawn_C::IsGround() {
     FHitResult OutHit; //Hit Result stored on impact
     
     FVector SweepStart = GetActorLocation();
-    FVector SweepEnd = GetActorLocation() + FVector(0.f, 0.f, -60.f);
+    FVector SweepEnd = GetActorLocation() + FVector(0.f, 0.f, -100.f);
     
     TArray<TEnumAsByte<EObjectTypeQuery>> TraceObjectType;
     TraceObjectType.Add(UEngineTypes::ConvertToObjectType(ECC_WorldStatic));
     
-    FCollisionShape JumpColSphere = FCollisionShape::MakeSphere(50.f); //Make sphere collision shape
+    FCollisionShape JumpColSphere = FCollisionShape::MakeSphere(10.f); //Make sphere collision shape
     
     FCollisionQueryParams TraceParameter (FName(TEXT("")), false, GetOwner());
     
@@ -106,13 +108,17 @@ void APuppetPawn_C::IntendJump() {
     if (IsGround() && JumpCounter < 1) {
         PuppetMesh->Jump(PlayerJumpStrength);
         JumpCounter++;
-        GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, TimerDelay, true);
+        //GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, TimerDelay, true);
+        
+        IsPuppetJump = true;
         
     } else if (!IsGround() && JumpCounter < 2) {
         PuppetMesh->Jump(PlayerJumpStrength);
         JumpCounter++;
-        GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, TimerDelay, true);
-        //GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, );
+        //GetWorldTimerManager().SetTimer(JumpTraceTimer, this, &APuppetPawn_C::JumpTrace, TimerDelay, true);
+        
+        
+        IsPuppetJump = true;
     }
     
     UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
@@ -129,6 +135,12 @@ void APuppetPawn_C::UsePrimarySkill() {
         UE_LOG(LogTemp, Warning, TEXT("a Mask 1"))
     }
     KaMenMaskM->ThrowStringMM();
+    
+    if (KaMenMaskM->IsAttached) {
+        IsPuppetJump = false;
+    } else {
+        //IsPuppetJump = true;
+    }
 }
 
 void APuppetPawn_C::JumpTrace() {
@@ -136,6 +148,15 @@ void APuppetPawn_C::JumpTrace() {
     if (IsGround()) {
         JumpCounter = 0;
         UE_LOG(LogTemp, Warning, TEXT("Jump : %s"), *FString::FromInt(JumpCounter))
-        GetWorldTimerManager().ClearTimer(JumpTraceTimer);
+        //GetWorldTimerManager().ClearTimer(JumpTraceTimer);
+        
+        IsPuppetJump = false;
+        return;
     }
+    IsPuppetJump = true;
+    
+}
+
+void APuppetPawn_C::SetJumpBool(bool IsJump) {
+    IsPuppetJump = IsJump;
 }

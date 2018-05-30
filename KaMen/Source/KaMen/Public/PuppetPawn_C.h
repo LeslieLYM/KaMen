@@ -59,7 +59,13 @@ public:
     float PlayerSpeed = 12.f;
     
     UPROPERTY(EditDefaultsOnly, Category = "Player Movements Attributes")
-    float PlayerJumpStrength = 8.f;
+    float PlayerJumpStrength = 110.f;
+    
+    UPROPERTY(BlueprintReadOnly, Category = "Player Movements Attributes ")
+    bool IsPuppetJump = false;
+    
+    UFUNCTION(BlueprintCallable, Category = "Player Abilities")
+    void SetJumpBool(bool IsJump);
 
     
 private:
@@ -69,6 +75,6 @@ private:
     
     int32 JumpCounter = 0;
     
-    float TimerDelay = 0.2f;
+    float TimerDelay = 0.25f;
 	
 };
